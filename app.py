@@ -22,10 +22,6 @@ def main():
     unhashed_block = format_last_block(response["blockchain"])
     hashed_block = hash_mod10sha(unhashed_block)
 
-    base_block_string = generate_new_base_block(
-        hashed_block, response["transactions"][0], response["timestamp"]
-    )
-
     nonce = generate_valid_nonce(response, hashed_block, 0)
 
     try:
