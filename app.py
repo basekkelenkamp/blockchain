@@ -28,7 +28,7 @@ def main():
     try:
         url = "https://programmeren9.cmgt.hr.nl:8000/api/blockchain"
         res = send_response(url, nonce, "333ak")
-        print(res)
+        print(res.text)
 
     except Exception as e:
         print(f"Post failed: {e}")
