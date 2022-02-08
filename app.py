@@ -23,6 +23,7 @@ def main():
     hashed_block = hash_mod10sha(unhashed_block)
 
     nonce = generate_valid_nonce(response, hashed_block, 0)
+    sleep(1)
 
     try:
 
