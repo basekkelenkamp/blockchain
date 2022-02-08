@@ -1,13 +1,42 @@
 from pprint import pprint
+from time import sleep
 from hasher import hash_mod10sha
 
 import requests
 import json
+import sys
+sys.setrecursionlimit(50000)
 
-# GET request for json json data
-r = requests.get("https://programmeren9.cmgt.hr.nl:8000/api/blockchain/next")
-response = r.json()
-pprint(response)
+
+def main():
+
+    # GET request for json json data
+    try:
+        r = requests.get("https://programmeren9.cmgt.hr.nl:8000/api/blockchain/next")
+        response = r.json()
+        pprint(response)
+    except Exception as e:
+        print(f"Could not fetch data. {e}")
+        exit()
+
+    unhashed_block = format_last_block(response["blockchain"])
+    hashed_block = hash_mod10sha(unhashed_block)
+
+    base_block_string = generate_new_base_block(
+        hashed_block, response["transactions"][0], response["timestamp"]
+    )
+
+    nonce = generate_valid_nonce(response, hashed_block, 0)
+
+    try:
+
+        url = "https://programmeren9.cmgt.hr.nl:8000/api/blockchain"
+        res = send_response(url, nonce, "333ak")
+        print(res)
+    except Exception as e:
+        print(f"Post failed: {e}")
+
+    breakpoint()
 
 
 def format_last_block(block):
@@ -22,9 +51,40 @@ def format_last_block(block):
     return f"{_hash}{data}{_timestamp}{_nonce}"
 
 
-unhashed_block = format_last_block(response["blockchain"])
-hashed_block = hash_mod10sha(unhashed_block)
+def generate_new_base_block(hash: str, transactions: list, timestamp: int):
+    return f"{hash}{transactions['from']}{transactions['to']}{transactions['amount']}{transactions['timestamp']}{str(timestamp)} "
 
-pprint(hashed_block)
 
-breakpoint()
+def generate_valid_nonce(block: str, hash: str, nonce: int):
+    try:
+        base_block_string = generate_new_base_block(
+            hash, block["transactions"][0], block["timestamp"]
+        )
+
+        unhashed_string = f"{base_block_string}{nonce}"
+        hashed = hash_mod10sha(unhashed_string)
+
+        if hashed[:4] == '0000':
+            print(f"Valid nonce found! '{nonce}'")
+            return nonce
+
+        print(f"Invalid nonce: '{nonce}', trying again..")
+        return generate_valid_nonce(block, hash, nonce + 1)
+
+    except RecursionError as e:
+        print("Recursion error. Trying again after 2 seconds.")
+        sleep(2)
+        return generate_valid_nonce(block, hash, nonce + 1)
+
+
+def send_response(url: str, nonce: int, name):
+    data = {
+        "nonce": str(nonce),
+        "user": name
+    }
+
+    return requests.post(url, data)
+
+
+if __name__ == "__main__":
+    main()
