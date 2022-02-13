@@ -5,6 +5,7 @@ from src.hasher import hash_mod10sha
 import requests
 import json
 import sys
+
 sys.setrecursionlimit(50000)
 
 
@@ -61,7 +62,7 @@ def generate_valid_nonce(block: str, hash: str, nonce: int):
         unhashed_string = f"{base_block_string}{nonce}"
         hashed = hash_mod10sha(unhashed_string)
 
-        if hashed[:4] == '0000':
+        if hashed[:4] == "0000":
             print(f"Valid nonce found! '{nonce}'")
             return nonce
 
@@ -75,10 +76,7 @@ def generate_valid_nonce(block: str, hash: str, nonce: int):
 
 
 def send_response(url: str, nonce: int, name):
-    data = {
-        "nonce": str(nonce),
-        "user": name
-    }
+    data = {"nonce": str(nonce), "user": name}
 
     return requests.post(url, data)
 

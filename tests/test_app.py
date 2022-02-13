@@ -10,43 +10,45 @@ from src.hasher import hash_mod10sha
 format_block_fixture = [
     (
         api_response,
-        '000078454c038871fa4d67b0022a30baaf25eaa231f8991b108e2624f052f3f8CMGT Mining CorporationBob PIKAB11548689513858154874778871610312'
+        "000078454c038871fa4d67b0022a30baaf25eaa231f8991b108e2624f052f3f8CMGT Mining CorporationBob PIKAB11548689513858154874778871610312",
     )
 ]
 
-# input & expected result, 2 scenarios
+# input & expected result. 2 scenarios
 hash_mod10sha_fixture = [
     (
-        'text',
-        'd0b3cb0cc9100ef243a1023b2a129d15c28489e387d3f8b687a7299afb4b5079'
+        "text",
+        "d0b3cb0cc9100ef243a1023b2a129d15c28489e387d3f8b687a7299afb4b5079"
     ),
     (
-        '000078454c038871fa4d67b0022a30baaf25eaa231f8991b108e2624f052f3f8CMGT Mining CorporationBob PIKAB11548689513858154874778871610312',
-        '00005d430ce77ad654b5309a770350bfb4cf49171c682330a2eccc98fd8853cf'
-    )
+        "000078454c038871fa4d67b0022a30baaf25eaa231f8991b108e2624f052f3f8CMGT Mining CorporationBob PIKAB11548689513858154874778871610312",
+        "00005d430ce77ad654b5309a770350bfb4cf49171c682330a2eccc98fd8853cf",
+    ),
 ]
 
+# Inputs: hash, transactions, timestamp, & expected output. 2 Scenarios
 generate_base_fixture = [
     (
-        'd0b3cb0cc9100ef243a1023b2a129d15c28489e387d3f8b687a7299afb4b5079',
+        "d0b3cb0cc9100ef243a1023b2a129d15c28489e387d3f8b687a7299afb4b5079",
         api_response["transactions"][0],
         api_response["timestamp"],
-        'd0b3cb0cc9100ef243a1023b2a129d15c28489e387d3f8b687a7299afb4b5079CMGT Mining CorporationBas BOOTB115487477332611548748101396'
+        "d0b3cb0cc9100ef243a1023b2a129d15c28489e387d3f8b687a7299afb4b5079CMGT Mining CorporationBas BOOTB115487477332611548748101396",
     ),
     (
-        '00005d430ce77ad654b5309a770350bfb4cf49171c682330a2eccc98fd8853cf',
+        "00005d430ce77ad654b5309a770350bfb4cf49171c682330a2eccc98fd8853cf",
         api_response["transactions"][0],
         api_response["timestamp"],
-        '00005d430ce77ad654b5309a770350bfb4cf49171c682330a2eccc98fd8853cfCMGT Mining CorporationBas BOOTB115487477332611548748101396'
-    )
+        "00005d430ce77ad654b5309a770350bfb4cf49171c682330a2eccc98fd8853cfCMGT Mining CorporationBas BOOTB115487477332611548748101396",
+    ),
 ]
 
+# Input: block, hash, nonce, & expected output nonce
 generate_nonce_fixture = [
     (
         api_response,
-        '000078454c038871fa4d67b0022a30baaf25eaa231f8991b108e2624f052f3f8',
+        "000078454c038871fa4d67b0022a30baaf25eaa231f8991b108e2624f052f3f8",
         10312,
-        30076
+        30076,
     )
 ]
 
