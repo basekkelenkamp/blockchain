@@ -1,6 +1,6 @@
 from pprint import pprint
 from time import sleep
-from hasher import hash_mod10sha
+from src.hasher import hash_mod10sha
 
 import requests
 import json
@@ -49,7 +49,7 @@ def format_last_block(block):
 
 
 def generate_new_base_block(hash: str, transactions: list, timestamp: int):
-    return f"{hash}{transactions['from']}{transactions['to']}{transactions['amount']}{transactions['timestamp']}{str(timestamp)} "
+    return f"{hash}{transactions['from']}{transactions['to']}{transactions['amount']}{transactions['timestamp']}{str(timestamp)}"
 
 
 def generate_valid_nonce(block: str, hash: str, nonce: int):
