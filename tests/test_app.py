@@ -1,5 +1,10 @@
-import pytest
+import os
+import sys
 
+cur_path = os.path.abspath(os.path.dirname(__file__))
+sys.path.insert(0, cur_path + "/..")
+
+import pytest
 from fixtures import api_response
 from src.app import format_last_block, generate_new_base_block, generate_valid_nonce
 from src.hasher import hash_mod10sha
