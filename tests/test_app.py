@@ -19,18 +19,6 @@ format_block_fixture = [
     )
 ]
 
-# input & expected result. 2 scenarios
-hash_mod10sha_fixture = [
-    (
-        "text",
-        "d0b3cb0cc9100ef243a1023b2a129d15c28489e387d3f8b687a7299afb4b5079"
-    ),
-    (
-        "000078454c038871fa4d67b0022a30baaf25eaa231f8991b108e2624f052f3f8CMGT Mining CorporationBob PIKAB11548689513858154874778871610312",
-        "00005d430ce77ad654b5309a770350bfb4cf49171c682330a2eccc98fd8853cf",
-    ),
-]
-
 # Inputs: hash, transactions, timestamp, & expected output. 2 Scenarios
 generate_base_fixture = [
     (
@@ -61,13 +49,6 @@ generate_nonce_fixture = [
 @pytest.mark.parametrize("input, expected", format_block_fixture)
 def test_format_last_block(input, expected):
     result = format_last_block(input["blockchain"])
-
-    assert expected == result
-
-
-@pytest.mark.parametrize("input, expected", hash_mod10sha_fixture)
-def test_hash_mod10sha(input, expected):
-    result = hash_mod10sha(input)
 
     assert expected == result
 
